@@ -89,4 +89,5 @@ const tip = computed(() => {
 .tip-card small { font-size: 12px; color: var(--grey); }
 .tip-enter-active, .tip-leave-active { transition: opacity .25s var(--ease); }
 .tip-enter-from, .tip-leave-to { opacity: 0; }
+@media (max-width: 767px) { .tip { display: none; } }
 </style>

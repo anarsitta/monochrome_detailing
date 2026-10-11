@@ -15,11 +15,14 @@ const active = ref(0)
 const bottomUp = computed(() => props.layers.map((l, i) => ({ ...l, i, color: props.palette[i] })).reverse())
 
 let ctx
+// Расстояние между слоями зависит от ширины экрана, чтобы стопка не выходила за блок
+const targetGap = () => (window.innerWidth < 768 ? 22 : window.innerWidth < 1024 ? 32 : 44) + 'px'
+
 onMounted(() => {
-  if (reducedMotion()) { stack.value.style.setProperty('--gap', '40px'); return }
+  if (reducedMotion()) { stack.value.style.setProperty('--gap', targetGap()); return }
   ctx = gsap.context(() => {
     gsap.fromTo(stack.value, { '--gap': '6px', '--tilt': '70deg' }, {
-      '--gap': '44px', '--tilt': '58deg', duration: 1.2, ease: 'power2.out',
+      '--gap': targetGap(), '--tilt': '58deg', duration: 1.2, ease: 'power2.out',
       scrollTrigger: { trigger: root.value, start: 'top 70%', once: true },
     })
   }, root.value)
@@ -42,6 +45,18 @@ onUnmounted(() => ctx && ctx.revert())
       </div>
     </div>
 
+    <!-- Телефон: плоский разрез вместо 3D, чтобы ничего не выходило за блок -->
+    <div class="flat" aria-hidden="true">
+      <span
+        v-for="(l, i) in layers"
+        :key="l.name"
+        class="flat-layer"
+        :class="{ on: active === i }"
+        :style="{ background: palette[i] }"
+        @click="active = i"
+      ><b v-if="active === i">{{ l.name }}</b></span>
+    </div>
+
     <ol class="list">
       <li v-for="(l, i) in layers" :key="l.name">
         <p v-if="i === 0 || layers[i - 1].group !== l.group" class="group">{{ groups[l.group] }}</p>
@@ -58,10 +73,10 @@ onUnmounted(() => ctx && ctx.revert())
 </template>
 
 <style scoped>
-.ls { display: grid; grid-template-columns: 6fr 6fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
+.ls { display: grid; grid-template-columns: 6fr 6fr; gap: clamp(32px, 5vw, 80px); align-items: center; margin-top: clamp(32px, 5vw, 80px); }
 .stack { --gap: 6px; --tilt: 70deg; position: relative; height: clamp(320px, 32vw, 440px); perspective: 1600px; }
 .layer {
-  position: absolute; left: 50%; top: 58%; width: min(280px, 64%); aspect-ratio: 1; translate: -50% -50%;
+  position: absolute; left: 50%; top: 64%; width: min(280px, 64%); aspect-ratio: 1; translate: -50% -50%;
   transform: rotateX(var(--tilt)) rotateZ(-42deg) translateZ(calc(var(--k) * var(--gap)));
   border-radius: 18px; background: var(--c); border: 1px solid rgba(255,255,255,.35);
   box-shadow: 0 1px 0 rgba(255,255,255,.4) inset, 0 30px 50px -30px rgba(0,0,0,.45);
@@ -87,6 +102,19 @@ li:first-child .group { margin-top: 0; }
 .dark .item-text { color: var(--text-dark); }
 .item-text > span { overflow: hidden; min-height: 0; }
 .item.on .item-text { grid-template-rows: 1fr; margin-top: 4px; }
-@media (max-width: 1023px) { .ls { grid-template-columns: 1fr; } .stack { height: 360px; } }
-@media (max-width: 767px) { .stack { height: 300px; } .layer { width: 200px; } }
+@media (max-width: 1023px) {
+  .ls { grid-template-columns: 1fr; }
+  .stack { height: 380px; overflow: hidden; }
+  .layer { top: 62%; width: 240px; }
+}
+.flat { display: none; }
+@media (max-width: 767px) {
+  .ls { gap: 24px; margin-top: 24px; }
+  .stack { display: none; }
+  .flat { display: flex; flex-direction: column; gap: 4px; padding: 16px; border-radius: 16px; background: var(--milk); }
+  .flat-layer { display: flex; align-items: center; height: 26px; padding: 0 12px; border-radius: 6px; border: 1px solid rgba(23,23,23,.12); transition: height .35s var(--ease), box-shadow .3s var(--ease); cursor: pointer; }
+  .flat-layer.on { height: 40px; box-shadow: 0 0 0 2px var(--accent); }
+  .flat-layer b { padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; background: rgba(23,23,23,.72); color: #fff; }
+  .dark .flat { background: rgba(243,240,234,.05); }
+}
 </style>

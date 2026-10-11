@@ -40,6 +40,12 @@ function onScroll() {
   if (!raf) raf = requestAnimationFrame(detectTheme)
 }
 function onDocClick(e) { if (!e.target.closest('.nav-drop')) dropOpen.value = false }
+// Список услуг открывается при наведении и сворачивается, когда мышь уходит
+let dropTimer
+function dropEnter() { clearTimeout(dropTimer); dropOpen.value = true }
+function dropLeave() { clearTimeout(dropTimer); dropTimer = setTimeout(() => { dropOpen.value = false }, 180) }
+// Клавиатура: закрываем, когда фокус ушёл за пределы меню услуг
+function dropFocusOut(e) { if (!e.currentTarget.contains(e.relatedTarget)) dropOpen.value = false }
 function onKey(e) {
   if (e.key !== 'Escape') return
   dropOpen.value = false
@@ -110,14 +116,14 @@ onBeforeUnmount(() => {
       <nav class="nav" aria-label="Основное меню">
         <ul>
           <li><RouterLink class="nav-link" :to="{ path: '/', hash: '#about' }">О нас</RouterLink></li>
-          <li class="nav-drop">
+          <li class="nav-drop" @mouseenter="dropEnter" @mouseleave="dropLeave" @focusout="dropFocusOut">
             <button
               type="button"
               class="nav-link nav-drop-btn"
               :class="{ 'is-active': isService }"
               :aria-expanded="String(dropOpen)"
               aria-controls="drop-services"
-              @click="dropOpen = !dropOpen"
+              @click="dropEnter"
             >Услуги <span class="chev" aria-hidden="true" /></button>
             <div id="drop-services" class="nav-drop-panel">
               <RouterLink class="drop-card" :to="PAGES.film.path">
@@ -218,9 +224,9 @@ onBeforeUnmount(() => {
 .nav > ul { display: flex; gap: 4px; }
 /* Пункт меню подсвечивается плашкой при наведении, активный — постоянно */
 .nav-link { position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; border-radius: 999px; font-size: 15px; font-weight: 500; transition: background-color .3s var(--ease), color .3s var(--ease); }
-.nav-link:hover, .nav-drop:hover .nav-drop-btn, .nav-drop-btn[aria-expanded="true"] { background: rgba(23, 23, 23, .08); }
+.nav-link:hover, .nav-drop-btn[aria-expanded="true"] { background: rgba(23, 23, 23, .08); }
 .nav-drop-btn.is-active { background: var(--ink); color: var(--milk); }
-.on-dark .nav-link:hover, .on-dark .nav-drop:hover .nav-drop-btn, .on-dark .nav-drop-btn[aria-expanded="true"] { background: rgba(243, 240, 234, .12); }
+.on-dark .nav-link:hover, .on-dark .nav-drop-btn[aria-expanded="true"] { background: rgba(243, 240, 234, .12); }
 .on-dark .nav-drop-btn.is-active { background: var(--milk); color: var(--ink); }
 .chev { width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform .3s var(--ease); }
 .nav-drop-btn[aria-expanded="true"] .chev { transform: translateY(1px) rotate(-135deg); }
@@ -231,7 +237,9 @@ onBeforeUnmount(() => {
   background: var(--white); border-radius: var(--radius-lg); box-shadow: 0 30px 60px -20px rgba(23,23,23,.25);
   opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .3s var(--ease), transform .4s var(--ease), visibility .3s;
 }
-.nav-drop:hover .nav-drop-panel, .nav-drop:focus-within .nav-drop-panel, .nav-drop-btn[aria-expanded="true"] + .nav-drop-panel { opacity: 1; visibility: visible; transform: none; }
+.nav-drop-btn[aria-expanded="true"] + .nav-drop-panel { opacity: 1; visibility: visible; transform: none; }
+/* Невидимый мостик между кнопкой и панелью, чтобы список не закрывался на пути мыши */
+.nav-drop-panel::before { content: ''; position: absolute; left: 0; right: 0; top: -14px; height: 14px; }
 .drop-card { display: flex; flex-direction: column; gap: 12px; padding: 8px; border-radius: 10px; transition: background-color .3s var(--ease); }
 .drop-card { color: var(--ink); border: 1.5px solid transparent; transition: background-color .3s var(--ease), border-color .3s var(--ease); }
 .drop-card:hover { background: var(--milk); border-color: var(--accent); }

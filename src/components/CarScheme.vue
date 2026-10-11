@@ -142,5 +142,6 @@ function key(e, id) {
 .tip-enter-active, .tip-leave-active { transition: opacity .3s var(--ease), translate .4s var(--ease); }
 .tip-enter-from { opacity: 0; translate: 0 8px; }
 .tip-leave-to { opacity: 0; translate: 0 -6px; }
-@media (max-width: 767px) { .tip-card b { font-size: 13px; } .tip-card small { display: none; } }
+/* На телефоне выноски не показываем: деталь видна в списке под схемой */
+@media (max-width: 767px) { .tip { display: none; } }
 </style>

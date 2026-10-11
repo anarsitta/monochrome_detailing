@@ -21,8 +21,23 @@ const ticks = computed(() => props.steps.map((s, i) => {
   return { x: 160 + Math.cos(a) * R, y: 160 + Math.sin(a) * R }
 }))
 
+// Линия идёт ровно от центра первого кружка до центра последнего, без хвоста
+const lineEl = ref(null)
+let ro
+function fitLine() {
+  const dots = list.value ? list.value.querySelectorAll('.dot') : []
+  if (!dots.length || !lineEl.value) return
+  const base = list.value.getBoundingClientRect().top
+  const first = dots[0].getBoundingClientRect()
+  const last = dots[dots.length - 1].getBoundingClientRect()
+  lineEl.value.style.top = first.top + first.height / 2 - base + 'px'
+  lineEl.value.style.height = last.top - first.top + 'px'
+}
+
 let ctx
 onMounted(() => {
+  fitLine()
+  if ('ResizeObserver' in window) { ro = new ResizeObserver(fitLine); ro.observe(list.value) }
   if (reducedMotion()) { ring.value.style.strokeDashoffset = 0; active.value = n - 1; return }
   ctx = gsap.context(() => {
     // Кольцо и линия рисуются напрямую через GSAP, без перерисовки Vue на каждом кадре
@@ -40,7 +55,7 @@ onMounted(() => {
     })
   }, root.value)
 })
-onUnmounted(() => ctx && ctx.revert())
+onUnmounted(() => { ro && ro.disconnect(); ctx && ctx.revert() })
 </script>
 
 <template>
@@ -64,7 +79,7 @@ onUnmounted(() => ctx && ctx.revert())
     </div>
 
     <div ref="list" class="steps">
-      <span class="line" aria-hidden="true"><span class="line-fill" /></span>
+      <span ref="lineEl" class="line" aria-hidden="true"><span class="line-fill" /></span>
       <ol>
         <li v-for="(s, i) in steps" :key="s.title" class="step" :class="{ on: i === active, done: i < active }">
           <span class="dot" aria-hidden="true">{{ i + 1 }}</span>
@@ -94,7 +109,7 @@ onUnmounted(() => ctx && ctx.revert())
 .ring-title { margin: 18px auto 0; font-family: var(--display); font-weight: 500; font-size: 22px; max-width: 320px; text-align: center; }
 
 .steps { position: relative; }
-.line { position: absolute; left: 19px; top: 24px; bottom: 24px; width: 2px; background: var(--line-dark); }
+.line { position: absolute; left: 19px; top: 26px; width: 2px; background: var(--line-dark); }
 .line-fill { position: absolute; inset: 0; background: var(--accent); transform-origin: top; transform: scaleY(0); will-change: transform; }
 .step { position: relative; display: grid; grid-template-columns: 40px 1fr; gap: 18px; padding: 6px 0; }
 .dot { position: relative; z-index: 1; width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 500; font-size: 14px; background: var(--ink); border: 1.5px solid rgba(243,240,234,.25); color: var(--text-dark); transition: background-color .3s, border-color .3s, color .3s; }
