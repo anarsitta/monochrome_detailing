@@ -14,8 +14,8 @@ const items = [
     title: 'Оклейка плёнкой',
     to: PAGES.film.path,
     goal: 'film_page',
-    img: 'hero-atelier.jpg',
-    w: 780, h: 650,
+    img: 'hero-atelier.webp',
+    w: 1374, h: 1145,
     tag: 'Кузов',
     text: 'Прозрачная полиуретановая плёнка закрывает лак от сколов, песка и мелких царапин. Внешне автомобиль не меняется.',
     list: ['Новый автомобиль, пока покрытие без следов', 'Фронт для трассы: бампер, капот, фары', 'Пороги, ручки, кромка багажника'],
@@ -25,7 +25,7 @@ const items = [
     title: 'Антикор',
     to: PAGES.antikor.path,
     goal: 'antikor_page',
-    img: 'antikor-underbody.jpg',
+    img: 'antikor-underbody.webp',
     w: 1600, h: 1067,
     tag: 'Днище',
     text: 'Защищаем днище, арки и скрытые полости от соли и влаги. Состав работ определяем после осмотра на подъёмнике.',
@@ -55,7 +55,7 @@ const items = [
           @mouseenter="active = i"
           @focusin="active = i"
         >
-          <img class="panel-img" :src="`/img/${d.img}`" :width="d.w" :height="d.h" alt="" loading="lazy" decoding="async">
+          <img class="panel-img" :src="`/img/${d.img}`" :srcset="`/img/${d.img.replace('.webp', '-800.webp')} 800w, /img/${d.img} 1600w`" sizes="(max-width: 767px) 100vw, 60vw" :width="d.w" :height="d.h" alt="" loading="lazy" decoding="async">
           <div class="panel-shade" />
           <span class="panel-tag">{{ d.tag }}</span>
           <div class="panel-body">

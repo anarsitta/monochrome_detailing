@@ -3,7 +3,7 @@ import data from '../data'
 
 const { site, contacts } = data
 
-export function useSeo({ title, description, path, image = 'case-a6-result.jpg', jsonld = [], noindex = false }) {
+export function useSeo({ title, description, path, image = 'og-home.jpg', jsonld = [], noindex = false }) {
   const url = site.url + path
   useHead({
     title,
@@ -38,7 +38,7 @@ export const localBusiness = () => ({
   description: site.descriptor,
   url: site.url + '/',
   telephone: contacts.phoneHref.replace('tel:', ''),
-  image: site.url + '/img/hero-atelier.jpg',
+  image: site.url + '/img/og-home.jpg',
   address: { '@type': 'PostalAddress', streetAddress: contacts.address.replace(/^Ярославль,\s*/, ''), addressLocality: 'Ярославль', addressCountry: 'RU' },
   geo: { '@type': 'GeoCoordinates', latitude: contacts.geo.lat, longitude: contacts.geo.lon },
   openingHours: contacts.hoursSchema,

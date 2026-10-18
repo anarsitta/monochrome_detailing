@@ -5,7 +5,7 @@ import { track } from '../../composables/analytics'
 <template>
   <section class="hero" aria-labelledby="hero-title">
     <div class="photo" aria-hidden="true">
-      <img src="/img/case-a6-result.jpg" width="650" height="456" alt="" fetchpriority="high" decoding="async">
+      <img src="/img/case-a6-result.webp" srcset="/img/case-a6-result-800.webp 800w, /img/case-a6-result.webp 1600w" sizes="(max-width: 767px) 100vw, 60vw" width="1497" height="1051" alt="" fetchpriority="high" decoding="async">
     </div>
 
     <div class="container main">

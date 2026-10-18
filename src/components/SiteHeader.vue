@@ -127,11 +127,11 @@ onBeforeUnmount(() => {
             >Услуги <span class="chev" aria-hidden="true" /></button>
             <div id="drop-services" class="nav-drop-panel">
               <RouterLink class="drop-card" :to="PAGES.film.path">
-                <img src="/img/hero-atelier.jpg" alt="" loading="lazy">
+                <img src="/img/hero-atelier.webp" srcset="/img/hero-atelier-800.webp 800w, /img/hero-atelier.webp 1600w" sizes="240px" alt="" loading="lazy">
                 <span><b>Оклейка плёнкой</b><small>Прозрачная защита кузова</small></span>
               </RouterLink>
               <RouterLink class="drop-card" :to="PAGES.antikor.path">
-                <img src="/img/antikor-underbody.jpg" alt="" loading="lazy">
+                <img src="/img/antikor-underbody.webp" srcset="/img/antikor-underbody-800.webp 800w, /img/antikor-underbody.webp 1600w" sizes="240px" alt="" loading="lazy">
                 <span><b>Антикор</b><small>Днище, арки и полости</small></span>
               </RouterLink>
             </div>
@@ -186,18 +186,16 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+/* Полноценная полоса меню: всегда с фоном и тонким разделителем.
+   Смена светлой/тёмной темы быстрая, без тяжёлой тени, чтобы полоса не «плыла» при скролле. */
 .site-header {
   position: fixed; inset: 0 0 auto; z-index: 50;
-  transition: background-color .35s var(--ease), box-shadow .35s var(--ease), transform .45s var(--ease);
-}
-/* Полноценная полоса меню: всегда с фоном и разделителем */
-.site-header {
   color: var(--ink);
   background: #F3F0EA;
   border-bottom: 1px solid var(--line);
-  transition: background-color .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease);
+  transition: background-color .18s linear, color .18s linear, border-color .18s linear;
 }
-.site-header.is-scrolled { box-shadow: 0 10px 30px -18px rgba(23, 23, 23, .35); }
+.site-header.is-scrolled:not(.on-dark) { box-shadow: 0 6px 16px -14px rgba(23, 23, 23, .18); }
 .header-inner { display: flex; align-items: center; gap: 28px; height: 72px; }
 
 /* Логотип: PNG как маска, по ней проходит хромированный блик */

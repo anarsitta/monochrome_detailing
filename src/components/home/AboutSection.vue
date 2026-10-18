@@ -25,7 +25,7 @@ const facts = [
 
       <div class="grid">
         <figure class="photo photo-main" data-anim="fade">
-          <img src="/img/case-a6-result.jpg" width="650" height="456" alt="Серый Audi A6 Avant в светлом зале ателье MONOCHROME" loading="lazy" decoding="async">
+          <img src="/img/case-a6-result.webp" srcset="/img/case-a6-result-800.webp 800w, /img/case-a6-result.webp 1600w" sizes="(max-width: 767px) 100vw, 60vw" width="1497" height="1051" alt="Серый Audi A6 Avant в светлом зале ателье MONOCHROME" loading="lazy" decoding="async">
         </figure>
 
         <div class="copy" data-anim="fade">
@@ -39,11 +39,11 @@ const facts = [
 
       <div class="row" data-anim="stagger">
         <figure class="photo tile">
-          <img src="/img/case-a6-prep.jpg" width="246" height="173" alt="Мастер очищает капот перед оклейкой" loading="lazy" decoding="async">
+          <img src="/img/case-a6-prep.webp" srcset="/img/case-a6-prep-800.webp 800w, /img/case-a6-prep.webp 1600w" sizes="(max-width: 767px) 100vw, 60vw" width="1495" height="1052" alt="Мастер очищает капот перед оклейкой" loading="lazy" decoding="async">
           <figcaption>Подготовка кузова перед оклейкой</figcaption>
         </figure>
         <figure class="photo tile">
-          <img src="/img/case-a6-headlight.jpg" width="264" height="200" alt="Фара и крыло после оклейки крупным планом" loading="lazy" decoding="async">
+          <img src="/img/case-a6-headlight.webp" srcset="/img/case-a6-headlight-800.webp 800w, /img/case-a6-headlight.webp 1600w" sizes="(max-width: 767px) 100vw, 60vw" width="1024" height="776" alt="Фара и крыло после оклейки крупным планом" loading="lazy" decoding="async">
           <figcaption>Контроль кромок при разном свете</figcaption>
         </figure>
         <div class="tile note dark">

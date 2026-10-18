@@ -23,7 +23,7 @@ useSeo({
   title: 'Оклейка автомобиля защитной плёнкой в Ярославле | MONOCHROME',
   description: 'Защитная оклейка автомобиля полиуретановой плёнкой в Ярославле. Варианты защиты кузова, примеры работ и расчёт стоимости в MONOCHROME.',
   path: PAGES.film.path,
-  image: 'hero-atelier.jpg',
+  image: 'og-film.jpg',
   jsonld: [
     serviceSchema('film', 'Оклейка автомобиля защитной плёнкой', 'Защитная оклейка кузова полиуретановой плёнкой',
       packages.map((p) => ({ '@type': 'Offer', name: p.name, price: p.price, priceCurrency: 'RUB' }))),
@@ -125,7 +125,7 @@ const palette = [
 
     <CrossLink
       :to="PAGES.antikor.path"
-      image="antikor-underbody.jpg"
+      image="antikor-underbody.webp"
       eyebrow="Защита снизу"
       title="Плёнка защищает кузов сверху, а днище и арки — антикоррозийная обработка"
       link="Об антикоре"

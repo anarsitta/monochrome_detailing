@@ -18,7 +18,7 @@ const facts = [
 <template>
   <section class="hero" aria-labelledby="hero-title">
     <div class="photo" aria-hidden="true">
-      <img src="/img/antikor-underbody.jpg" width="1600" height="1067" alt="" fetchpriority="high" decoding="async">
+      <img src="/img/antikor-underbody.webp" srcset="/img/antikor-underbody-800.webp 800w, /img/antikor-underbody.webp 1600w" sizes="(max-width: 767px) 100vw, 60vw" width="1600" height="1067" alt="" fetchpriority="high" decoding="async">
     </div>
 
     <div class="container main">

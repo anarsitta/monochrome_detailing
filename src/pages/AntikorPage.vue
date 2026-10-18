@@ -21,7 +21,7 @@ useSeo({
   title: 'Антикоррозийная обработка автомобиля в Ярославле | MONOCHROME',
   description: 'Антикоррозийная обработка днища, арок и скрытых полостей автомобиля в Ярославле. Осмотр, состав работ и предварительный расчёт в MONOCHROME.',
   path: PAGES.antikor.path,
-  image: 'antikor-underbody.jpg',
+  image: 'og-antikor.jpg',
   jsonld: [
     serviceSchema('antikor', 'Антикоррозийная обработка автомобиля', 'Антикоррозийная обработка днища, арок и скрытых полостей'),
     breadcrumbSchema('antikor'),
@@ -71,7 +71,7 @@ const palette = [
         </div>
         <ExpandColumns :columns="columns" prefix="ak-scope" />
         <aside class="stop" data-anim="fade">
-          <figure><img src="/img/antikor-process.jpg" width="1600" height="1067" alt="Мастер осматривает днище автомобиля на подъёмнике" loading="lazy" decoding="async"></figure>
+          <figure><img src="/img/antikor-process.webp" srcset="/img/antikor-process-800.webp 800w, /img/antikor-process.webp 1600w" sizes="(max-width: 767px) 100vw, 60vw" width="1600" height="1067" alt="Мастер осматривает днище автомобиля на подъёмнике" loading="lazy" decoding="async"></figure>
           <div>
             <h3 class="h3">Если найдена сквозная коррозия</h3>
             <p>Обработку не продолжаем. Вы получаете фото проблемных мест и отдельную рекомендацию: что нужно отремонтировать до антикора и к кому обратиться. Закрывать гнилой металл составом мы не будем.</p>
@@ -119,7 +119,7 @@ const palette = [
 
     <CrossLink
       :to="PAGES.film.path"
-      image="hero-atelier.jpg"
+      image="hero-atelier.webp"
       eyebrow="Защита сверху"
       title="Днище защищено. Кузов от сколов закроет прозрачная полиуретановая плёнка"
       link="Об оклейке плёнкой"

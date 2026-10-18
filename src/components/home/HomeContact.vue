@@ -14,7 +14,7 @@ defineProps({
   formTitle: { type: String, default: 'Оставить заявку' },
   lead: { type: String, default: 'Перезвоним, ответим на вопросы и подберём время осмотра.' },
   submit: { type: String, default: 'Отправить заявку' },
-  image: { type: String, default: 'hero-home.jpg' },
+  image: { type: String, default: 'hero-home.webp' },
 })
 
 const c = data.contacts
@@ -33,7 +33,7 @@ const steps = [
   <section id="contacts" ref="root" class="section contact" aria-labelledby="contact-title">
     <div class="container grid">
       <div class="side dark" data-anim="fade">
-        <img class="side-img" :src="`/img/${image}`" alt="" loading="lazy" decoding="async">
+        <img class="side-img" :src="`/img/${image}`" :srcset="`/img/${image.replace('.webp', '-800.webp')} 800w, /img/${image} 1600w`" sizes="(max-width: 767px) 100vw, 60vw" alt="" loading="lazy" decoding="async">
         <div class="side-shade" aria-hidden="true" />
         <div class="side-body">
           <p class="kicker">Запись</p>

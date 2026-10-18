@@ -19,7 +19,7 @@ useReveal(root)
   <section ref="root" class="cross" aria-label="Другая услуга">
     <div class="container">
       <RouterLink class="card dark" :to="to" data-anim="fade">
-        <span class="media" data-anim="wipe"><img :src="`/img/${image}`" alt="" loading="lazy" decoding="async"></span>
+        <span class="media" data-anim="wipe"><img :src="`/img/${image}`" :srcset="`/img/${image.replace('.webp', '-800.webp')} 800w, /img/${image} 1600w`" sizes="(max-width: 767px) 100vw, 60vw" alt="" loading="lazy" decoding="async"></span>
         <span class="body">
           <span class="eyebrow">{{ eyebrow }}</span>
           <span class="title">{{ title }}</span>

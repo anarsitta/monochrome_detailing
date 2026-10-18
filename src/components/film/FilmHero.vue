@@ -18,7 +18,7 @@ const facts = [
 <template>
   <section class="hero" aria-labelledby="hero-title">
     <div class="photo" aria-hidden="true">
-      <img src="/img/hero-atelier.jpg" width="780" height="650" alt="" fetchpriority="high" decoding="async">
+      <img src="/img/hero-atelier.webp" srcset="/img/hero-atelier-800.webp 800w, /img/hero-atelier.webp 1600w" sizes="(max-width: 767px) 100vw, 60vw" width="1374" height="1145" alt="" fetchpriority="high" decoding="async">
     </div>
 
     <div class="container main">
